@@ -1,0 +1,574 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Shiveshwar Sharma - Developer & Designer</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/devicons/devicon@v2.15.1/devicon.min.css">
+
+    <style>
+        :root {
+            --bg-dark: #100f1c;
+            --bg-light: #1d1b32;
+            --border-color: #3a3852;
+            --text-primary: #f0f0f0;
+            --text-secondary: #a0a0c0;
+            --accent-1: #ff8c00; /* Vibrant Orange */
+            --accent-2: #00f2ea; /* Electric Cyan */
+            --accent-3: #ff4081; /* Hot Pink */
+        }
+        
+        body {
+            font-family: 'Poppins', sans-serif;
+            color: var(--text-primary);
+            background-color: var(--bg-dark);
+            overflow-x: hidden; /* Prevent horizontal scroll from glowing elements */
+        }
+
+        .main-container {
+            background-image: radial-gradient(at 20% 20%, hsla(278, 55%, 21%, 1) 0px, transparent 50%),
+                              radial-gradient(at 80% 20%, hsla(190, 95%, 45%, 1) 0px, transparent 50%),
+                              radial-gradient(at 20% 80%, hsla(330, 95%, 55%, 1) 0px, transparent 50%),
+                              radial-gradient(at 80% 80%, hsla(34, 95%, 55%, 1) 0px, transparent 50%);
+            position: relative;
+        }
+
+        #particle-container {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            z-index: 0;
+        }
+
+        .particle {
+            position: absolute;
+            background-color: white;
+            border-radius: 50%;
+            opacity: 0;
+            animation: rise 10s infinite linear;
+        }
+
+        @keyframes rise {
+            0% { transform: translateY(100vh) scale(0); opacity: 1; }
+            100% { transform: translateY(-10vh) scale(1); opacity: 0; }
+        }
+
+        .section {
+            padding-top: 6rem;
+            padding-bottom: 6rem;
+            position: relative;
+            z-index: 2;
+        }
+        
+        .section-bordered {
+             border-bottom: 1px solid var(--border-color);
+        }
+
+        .nav-link {
+            position: relative;
+            transition: color 0.3s ease;
+        }
+        .nav-link:hover { color: var(--accent-1); }
+        .active-link { color: var(--accent-1); }
+        
+        .animate-on-scroll {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+        }
+        .animate-on-scroll.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        
+        .btn {
+            display: inline-block;
+            padding: 0.75rem 1.5rem;
+            border: 1px solid var(--accent-1);
+            color: var(--accent-1);
+            border-radius: 0.25rem;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+            z-index: 1;
+        }
+        .btn:after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: var(--accent-1);
+            z-index: -2;
+        }
+        .btn:before {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0%;
+            height: 100%;
+            background-color: var(--bg-dark);
+            transition: all .3s;
+            z-index: -1;
+        }
+        .btn:hover { color: white; }
+        .btn:hover:before { width: 100%; }
+        
+        .glass-effect {
+            background: rgba(29, 27, 50, 0.65);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid rgba(58, 56, 82, 0.5);
+            border-radius: 0.75rem; /* Slightly more rounded */
+            transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
+            box-shadow: 0 10px 30px -15px rgba(2,12,27,0.7);
+        }
+
+        .glass-effect:hover {
+            transform: translateY(-8px) scale(1.02);
+            box-shadow: 0 20px 40px -15px rgba(2,12,27,0.8);
+        }
+
+        .glass-effect.glow-accent-1:hover {
+             border-color: rgba(255, 140, 0, 0.4);
+        }
+        .glass-effect.glow-accent-2:hover {
+             border-color: rgba(0, 242, 234, 0.4);
+        }
+
+        .scrollbar-hide::-webkit-scrollbar { display: none; }
+        .scrollbar-hide { -ms-overflow-style: none; scrollbar-width: none; }
+        
+        #cursor-glow {
+            position: fixed;
+            left: 0;
+            top: 0;
+            width: 600px;
+            height: 600px;
+            border-radius: 50%;
+            background: radial-gradient(circle, rgba(0, 242, 234, 0.08) 0%, rgba(0, 242, 234, 0) 60%);
+            transform: translate(-50%, -50%);
+            pointer-events: none;
+            transition: opacity 0.3s;
+            z-index: 1;
+        }
+
+
+    </style>
+</head>
+<body class="leading-relaxed">
+    <div id="cursor-glow"></div>
+    <div class="main-container">
+        <div id="particle-container"></div>
+        <!-- HEADER & NAVIGATION -->
+        <header id="header" class="fixed top-0 left-0 right-0 z-50 transition-all duration-300">
+            <nav class="container mx-auto px-6 py-5 flex justify-between items-center">
+                <a href="#hero" class="text-2xl font-bold text-white tracking-wider">SHIVESHWAR</a>
+                <div class="hidden md:flex items-center space-x-8">
+                    <a href="#about" class="nav-link text-lg text-gray-300">About</a>
+                    <a href="#experience" class="nav-link text-lg text-gray-300">Experience</a>
+                    <a href="#skills" class="nav-link text-lg text-gray-300">Skills</a>
+                    <a href="#projects" class="nav-link text-lg text-gray-300">Projects</a>
+                    <a href="#photography" class="nav-link text-lg text-gray-300">Photography</a>
+                    <a href="#contact" class="nav-link text-lg text-gray-300">Contact</a>
+                </div>
+                <button id="mobile-menu-btn" class="md:hidden text-2xl z-50 text-white">
+                    <i class="fas fa-bars"></i>
+                </button>
+            </nav>
+            <!-- Mobile Menu -->
+            <div id="mobile-menu" class="hidden md:hidden fixed top-0 left-0 w-full h-screen bg-bg-dark/95 backdrop-blur-sm flex flex-col justify-center items-center space-y-8 text-3xl">
+                <a href="#about" class="nav-link text-gray-300">About</a>
+                <a href="#experience" class="nav-link text-gray-300">Experience</a>
+                <a href="#skills" class="nav-link text-gray-300">Skills</a>
+                <a href="#projects" class="nav-link text-gray-300">Projects</a>
+                <a href="#photography" class="nav-link text-gray-300">Photography</a>
+                <a href="#contact" class="nav-link text-gray-300">Contact</a>
+            </div>
+        </header>
+
+        <main class="container mx-auto px-6">
+    <main class="container mx-auto px-6 relative z-10">
+        <!-- HERO SECTION -->
+        <section id="hero" class="min-h-screen flex flex-col justify-center">
+            <div class="relative max-w-4xl z-10 pt-20">
+                <p class="text-accent-1 text-lg mb-4 animate-on-scroll" style="transition-delay: 100ms;">Hi, my name is</p>
+                <h1 class="text-4xl sm:text-6xl lg:text-7xl font-extrabold text-white leading-tight mb-4 animate-on-scroll" style="transition-delay: 200ms;">
+                    Shiveshwar Sharma.
+                </h1>
+                <h2 class="text-3xl sm:text-5xl lg:text-6xl font-bold text-text-secondary mb-8 animate-on-scroll" style="transition-delay: 300ms;">I build things for web and print.</h2>
+                <p class="text-lg text-text-secondary max-w-xl mb-12 animate-on-scroll" style="transition-delay: 400ms;">
+                    I'm a developer and designer specializing in creating high-quality digital experiences. Currently, I'm focused on building accessible, human-centered products and exploring new creative technologies.
+                </p>
+                    <div class="flex flex-col md:flex-row items-start gap-6 animate-on-scroll" style="transition-delay: 500ms;">
+                        <a href="Resume.pdf" download class="btn">Download Resume</a>
+                    </div>
+                </div>
+            </section>
+
+            <!-- ABOUT SECTION -->
+            <section id="about" class="section section-bordered">
+                 <h2 class="text-4xl font-bold text-center mb-12 animate-on-scroll">About Me</h2>
+                 <div class="flex flex-col md:flex-row items-center gap-12 md:gap-16">
+                    <div class="w-full md:w-1/3 flex-shrink-0 animate-on-scroll" style="transition-delay: 0.1s;">
+                        <div class="relative group">
+                             <div class="absolute -inset-1.5 bg-gradient-to-r from-accent-2 to-accent-1 rounded-lg blur opacity-75 group-hover:opacity-100 transition duration-1000 group-hover:duration-200 animate-tilt"></div>
+                             <img src="PFP.png" alt="Shiveshwar Sharma's Portrait" class="relative object-cover w-full max-w-sm mx-auto rounded-lg shadow-lg">
+                        </div>
+                    </div>
+                    <div class="md:w-2/3 animate-on-scroll" style="transition-delay: 0.2s;">
+                        <p class="text-lg text-text-secondary mb-6">
+                           Hello! I'm a creator at the dynamic intersection of technology and design, driven by a passion for building beautiful, functional digital experiences. My work spans from leading web development at the Fakir Mohan Foundation to designing intricate book layouts for publishing houses.
+                        </p>
+                        <p class="text-lg text-text-secondary">
+                           As a freelance designer, I've delivered bespoke branding and cover designs for international clients. Beyond design, I'm a dedicated problem-solver who enjoys bringing ideas to life through code, constantly seeking new challenges to expand my craft.
+                        </p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- EXPERIENCE SECTION -->
+            <section id="experience" class="section section-bordered">
+                 <h2 class="text-4xl font-bold text-center mb-16 animate-on-scroll relative">Where I've Worked</h2>
+                 <div class="max-w-3xl mx-auto relative md:h-[950px]">
+                     <!-- Vertical Line for Mobile -->
+                     <div class="absolute top-0 h-full w-0.5 bg-border-color left-4 md:hidden"></div>
+                     <!-- SVG Curve for Desktop -->
+                     <svg id="timeline-svg" class="absolute top-0 h-full w-full hidden md:block" aria-hidden="true">
+                        <defs>
+                            <linearGradient id="line-gradient" x1="0" x2="0" y1="0" y2="1">
+                                <stop offset="0%" stop-color="var(--accent-1)" />
+                                <stop offset="100%" stop-color="var(--accent-2)" />
+                            </linearGradient>
+                        </defs>
+                        <path id="timeline-path" d="M 50 0 V 150 C 50 250, 450 250, 450 350 V 500 C 450 600, 50 600, 50 700 V 850" stroke="url(#line-gradient)" fill="none" stroke-width="2" stroke-dasharray="5, 5" />
+                     </svg>
+
+                     <div class="space-y-16 md:space-y-0">
+                        <!-- Experience Item 1 -->
+                        <div class="animate-on-scroll relative pl-12 md:pl-0 md:absolute md:w-1/2" style="top: 50px; left: 0;">
+                            <div class="md:pr-8">
+                                <div class="glass-effect glow-accent-1 p-6">
+                                    <p class="text-text-secondary mb-1">Aug 2021 - Present</p>
+                                    <h3 class="text-xl font-bold text-white">Tech Head</h3>
+                                    <p class="text-md text-accent-1 mb-2">Fakir Mohan Foundation</p>
+                                    <ul class="list-disc list-inside text-text-secondary space-y-2">
+                                        <li>Led the design and development of the official website.</li>
+                                        <li>Designed promotional material like posters and event graphics.</li>
+                                    </ul>
+                                </div>
+                            </div>
+                            <div class="absolute top-4 left-4 -ml-2 w-4 h-4 bg-accent-1 rounded-full md:left-auto md:right-0 md:transform md:translate-x-1/2"></div>
+                        </div>
+                        
+                        <!-- Experience Item 2 -->
+                        <div class="animate-on-scroll relative pl-12 md:pl-0 md:absolute md:w-1/2" style="top: 350px; right: 0;">
+                            <div class="md:pl-8">
+                                <div class="glass-effect glow-accent-2 p-6">
+                                    <p class="text-text-secondary mb-1">Aug 2024 - Present</p>
+                                    <h3 class="text-xl font-bold text-white">Freelance Graphic Designer</h3>
+                                    <p class="text-md text-accent-2 mb-2">Fiverr</p>
+                                    <ul class="list-disc list-inside text-text-secondary space-y-2">
+                                        <li>Delivered creative solutions like custom book covers and branding.</li>
+                                        <li>Deepened expertise in Adobe Creative Suite through client projects.</li>
+                                    </ul>
+                                </div>
+                            </div>
+                             <div class="absolute top-4 left-4 -ml-2 w-4 h-4 bg-accent-2 rounded-full md:transform md:-translate-x-1/2"></div>
+                        </div>
+
+                        <!-- Experience Item 3 -->
+                        <div class="animate-on-scroll relative pl-12 md:pl-0 md:absolute md:w-1/2" style="top: 650px; left: 0;">
+                             <div class="md:pr-8">
+                                <div class="glass-effect glow-accent-1 p-6">
+                                    <p class="text-text-secondary mb-1">Apr 2025 - May 2025</p>
+                                    <h3 class="text-xl font-bold text-white">Book Designer</h3>
+                                    <p class="text-md text-accent-1 mb-2">Shubhi Publication</p>
+                                    <ul class="list-disc list-inside text-text-secondary space-y-2">
+                                        <li>Handled manuscripting and interior page layout for multiple titles.</li>
+                                        <li>Ensured formatting consistency and readability.</li>
+                                    </ul>
+                                </div>
+                            </div>
+                            <div class="absolute top-4 left-4 -ml-2 w-4 h-4 bg-accent-1 rounded-full md:left-auto md:right-0 md:transform md:translate-x-1/2"></div>
+                        </div>
+                     </div>
+                 </div>
+            </section>
+            
+            <!-- SKILLS SECTION -->
+            <section id="skills" class="section section-bordered">
+                <h2 class="text-4xl font-bold text-center mb-12 animate-on-scroll">My Toolkit</h2>
+                <div class="max-w-4xl mx-auto grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-6 text-center">
+                    <div class="glass-effect glow-accent-1 p-6 flex flex-col items-center justify-center animate-on-scroll" style="transition-delay: 100ms;">
+                        <i class="devicon-python-plain text-5xl text-accent-1"></i>
+                        <p class="mt-2 font-semibold">Python</p>
+                    </div>
+                    <div class="glass-effect glow-accent-1 p-6 flex flex-col items-center justify-center animate-on-scroll" style="transition-delay: 150ms;">
+                        <i class="devicon-mysql-plain text-5xl text-accent-1"></i>
+                        <p class="mt-2 font-semibold">MySQL</p>
+                    </div>
+                    <div class="glass-effect glow-accent-1 p-6 flex flex-col items-center justify-center animate-on-scroll" style="transition-delay: 200ms;">
+                        <i class="devicon-c-plain text-5xl text-accent-1"></i>
+                        <p class="mt-2 font-semibold">C</p>
+                    </div>
+                    <div class="glass-effect glow-accent-1 p-6 flex flex-col items-center justify-center animate-on-scroll" style="transition-delay: 250ms;">
+                        <i class="devicon-pandas-original text-5xl text-accent-1"></i>
+                        <p class="mt-2 font-semibold">Pandas</p>
+                    </div>
+                    <div class="glass-effect glow-accent-2 p-6 flex flex-col items-center justify-center animate-on-scroll" style="transition-delay: 300ms;">
+                        <i class="devicon-photoshop-plain text-5xl text-accent-2"></i>
+                        <p class="mt-2 font-semibold">Photoshop</p>
+                    </div>
+                    <div class="glass-effect glow-accent-2 p-6 flex flex-col items-center justify-center animate-on-scroll" style="transition-delay: 350ms;">
+                        <i class="devicon-illustrator-plain text-5xl text-accent-2"></i>
+                        <p class="mt-2 font-semibold">Illustrator</p>
+                    </div>
+                     <div class="glass-effect glow-accent-2 p-6 flex flex-col items-center justify-center animate-on-scroll" style="transition-delay: 400ms;">
+                        <i class="devicon-indesign-plain text-5xl text-accent-2"></i>
+                        <p class="mt-2 font-semibold">InDesign</p>
+                    </div>
+                     <div class="glass-effect glow-accent-2 p-6 flex flex-col items-center justify-center animate-on-scroll" style="transition-delay: 450ms;">
+                        <i class="fas fa-pen-ruler text-4xl text-accent-2"></i>
+                        <p class="mt-2 font-semibold">UI/UX Design</p>
+                    </div>
+                </div>
+            </section>
+
+
+            <!-- PROJECTS SECTION -->
+            <section id="projects" class="section section-bordered">
+                <h2 class="text-4xl font-bold text-center mb-12 animate-on-scroll">Some Things I've Built</h2>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <!-- Project 1 -->
+                    <div class="glass-effect glow-accent-1 p-6 flex flex-col animate-on-scroll" style="transition-delay: 100ms;">
+                        <div class="flex justify-between items-center mb-4">
+                            <i class="far fa-folder-open text-3xl text-accent-1"></i>
+                            <a href="#" class="text-text-secondary hover:text-accent-1"><i class="fas fa-external-link-alt"></i></a>
+                        </div>
+                        <h3 class="text-2xl font-bold mb-2 text-white">Taskmate - To-Do List App</h3>
+                        <p class="text-text-secondary mb-4 flex-grow">A task management app with a clean GUI allowing users to create, complete, and delete tasks, with data persistence via SQLite.</p>
+                        <div class="flex gap-4 text-sm text-text-secondary">
+                            <span>Python</span><span>Tkinter</span><span>SQLite</span>
+                        </div>
+                    </div>
+                    <!-- Project 2 -->
+                    <div class="glass-effect glow-accent-2 p-6 flex flex-col animate-on-scroll" style="transition-delay: 200ms;">
+                        <div class="flex justify-between items-center mb-4">
+                            <i class="far fa-folder-open text-3xl text-accent-2"></i>
+                            <a href="#" class="text-text-secondary hover:text-accent-2"><i class="fas fa-external-link-alt"></i></a>
+                        </div>
+                        <h3 class="text-2xl font-bold mb-2 text-white">Menstrual Tracker App</h3>
+                        <p class="text-text-secondary mb-4 flex-grow">A desktop app to track and log menstrual cycles, featuring data handling with Pandas and visualization of user history.</p>
+                        <div class="flex gap-4 text-sm text-text-secondary">
+                            <span>Python</span><span>Pandas</span><span>MySQL</span>
+                        </div>
+                    </div>
+                    <!-- Project 3 -->
+                    <div class="glass-effect glow-accent-2 p-6 flex flex-col animate-on-scroll" style="transition-delay: 300ms;">
+                        <div class="flex justify-between items-center mb-4">
+                            <i class="far fa-folder-open text-3xl text-accent-2"></i>
+                            <a href="https://fakirmohanfoundation.org" target="_blank" class="text-text-secondary hover:text-accent-2"><i class="fas fa-external-link-alt"></i></a>
+                        </div>
+                        <h3 class="text-2xl font-bold mb-2 text-white">Fakir Mohan Foundation Website</h3>
+                        <p class="text-text-secondary mb-4 flex-grow">Led the design and development of the official foundation website, establishing their online presence and communication hub.</p>
+                        <div class="flex gap-4 text-sm text-text-secondary">
+                            <span>Web Design</span><span>UI/UX</span><span>Graphic Design</span>
+                        </div>
+                    </div>
+                    <!-- Project 4 -->
+                    <div class="glass-effect glow-accent-1 p-6 flex flex-col animate-on-scroll" style="transition-delay: 400ms;">
+                        <div class="flex justify-between items-center mb-4">
+                            <i class="far fa-folder-open text-3xl text-accent-1"></i>
+                             <a href="https://www.fiverr.com/s/KeVLjmE" target="_blank" class="text-text-secondary hover:text-accent-1"><i class="fas fa-external-link-alt"></i></a>
+                        </div>
+                        <h3 class="text-2xl font-bold mb-2 text-white">Freelance Book Design</h3>
+                        <p class="text-text-secondary mb-4 flex-grow">Provided bespoke book cover and branding designs for international clients, managing projects from concept to completion.</p>
+                        <div class="flex gap-4 text-sm text-text-secondary">
+                            <span>Adobe Suite</span><span>Branding</span><span>Publishing</span>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- PHOTOGRAPHY SECTION -->
+            <section id="photography" class="section section-bordered">
+                <h2 class="text-4xl font-bold text-center mb-4 animate-on-scroll">Photography</h2>
+                <p class="text-lg text-text-secondary max-w-2xl mx-auto mb-12 text-center animate-on-scroll" style="transition-delay: 0.1s;">
+                    Moments captured via <a href="https://instagram.com/winsomeclick" target="_blank" class="text-accent-2 hover:underline">@winsomeclick</a>.
+                </p>
+                <div id="photo-gallery-container" class="relative group animate-on-scroll" style="transition-delay: 0.2s;">
+                    <div class="flex space-x-6 overflow-x-auto py-4 scrollbar-hide">
+                        <img src="2.jpg" alt="Photography by Shiveshwar Sharma" class="rounded-lg h-96 object-cover transition-all duration-300 group-hover:opacity-75 hover:!opacity-100 hover:scale-105 shadow-lg">
+                        <img src="3.jpg" alt="Photography by Shiveshwar Sharma" class="rounded-lg h-96 object-cover transition-all duration-300 group-hover:opacity-75 hover:!opacity-100 hover:scale-105 shadow-lg">
+                        <img src="4.png" alt="Photography by Shiveshwar Sharma" class="rounded-lg h-96 object-cover transition-all duration-300 group-hover:opacity-75 hover:!opacity-100 hover:scale-105 shadow-lg">
+                        <img src="5.jpg" alt="Photography by Shiveshwar Sharma" class="rounded-lg h-96 object-cover transition-all duration-300 group-hover:opacity-75 hover:!opacity-100 hover:scale-105 shadow-lg">
+                        <img src="6.jpg" alt="Photography by Shiveshwar Sharma" class="rounded-lg h-96 object-cover transition-all duration-300 group-hover:opacity-75 hover:!opacity-100 hover:scale-105 shadow-lg">
+                        <img src="7.jpg" alt="Photography by Shiveshwar Sharma" class="rounded-lg h-96 object-cover transition-all duration-300 group-hover:opacity-75 hover:!opacity-100 hover:scale-105 shadow-lg">
+                        <img src="8.jpg" alt="Photography by Shiveshwar Sharma" class="rounded-lg h-96 object-cover transition-all duration-300 group-hover:opacity-75 hover:!opacity-100 hover:scale-105 shadow-lg">
+                        <img src="9.jpg" alt="Photography by Shiveshwar Sharma" class="rounded-lg h-96 object-cover transition-all duration-300 group-hover:opacity-75 hover:!opacity-100 hover:scale-105 shadow-lg">
+                    </div>
+                    <div class="absolute bottom-4 left-1/2 -translate-x-1/2 flex items-center space-x-2 text-text-secondary opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none">
+                        <i class="fas fa-arrows-alt-h"></i>
+                        <span>Scroll to explore</span>
+                    </div>
+                </div>
+            </section>
+
+            <!-- CONTACT SECTION -->
+            <section id="contact" class="section text-center relative">
+                <div class="max-w-xl mx-auto relative z-10">
+                    <p class="text-accent-1 text-lg mb-2 animate-on-scroll">What's Next?</p>
+                    <h2 class="text-5xl font-bold mb-4 animate-on-scroll" style="transition-delay: 100ms;">Get In Touch</h2>
+                    <p class="text-lg text-text-secondary mb-8 animate-on-scroll" style="transition-delay: 200ms;">
+                        My inbox is always open. Whether you have a project, a question, or just want to connect, feel free to reach out. I'll do my best to get back to you!
+                    </p>
+                    <a href="mailto:sharma.shiveshwar@gmail.com" class="btn text-lg animate-on-scroll" style="transition-delay: 300ms;">
+                        Say Hello
+                    </a>
+                </div>
+            </section>
+        </main>
+        
+        <!-- FOOTER -->
+        <footer class="py-10 text-center text-text-secondary container mx-auto px-6 relative z-10">
+            <div class="flex justify-center space-x-6 text-2xl mb-4">
+                <a href="https://linkedin.com/in/shiveshwarsharma" target="_blank" class="hover:text-accent-1 transition-colors"><i class="fab fa-linkedin"></i></a>
+                <a href="#" target="_blank" class="hover:text-accent-1 transition-colors"><i class="fab fa-github"></i></a>
+                <a href="https://www.fiverr.com/s/KeVLjmE" target="_blank" class="hover:text-accent-1 transition-colors"><i class="fas fa-briefcase"></i></a>
+            </div>
+            <p>Designed & Built by Shiveshwar Sharma</p>
+        </footer>
+    </div>
+    
+    <!-- JAVASCRIPT -->
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            // --- Particle Animation ---
+            const particleContainer = document.getElementById('particle-container');
+            const particleCount = 50;
+            for (let i = 0; i < particleCount; i++) {
+                const particle = document.createElement('div');
+                particle.classList.add('particle');
+                const size = Math.random() * 3 + 1;
+                particle.style.width = `${size}px`;
+                particle.style.height = `${size}px`;
+                particle.style.left = `${Math.random() * 100}%`;
+                particle.style.animationDelay = `${Math.random() * 10}s`;
+                particle.style.animationDuration = `${Math.random() * 5 + 5}s`;
+                particleContainer.appendChild(particle);
+            }
+
+            // --- Cursor Glow Effect ---
+            const cursorGlow = document.getElementById('cursor-glow');
+            document.addEventListener('mousemove', (e) => {
+                cursorGlow.style.left = `${e.clientX}px`;
+                cursorGlow.style.top = `${e.clientY}px`;
+            });
+            document.addEventListener('mouseleave', () => cursorGlow.style.opacity = '0');
+            document.addEventListener('mouseenter', () => cursorGlow.style.opacity = '1');
+
+            // --- Mobile Menu Toggle ---
+            const mobileMenuBtn = document.getElementById('mobile-menu-btn');
+            const mobileMenu = document.getElementById('mobile-menu');
+            mobileMenuBtn.addEventListener('click', () => mobileMenu.classList.toggle('hidden'));
+            mobileMenu.querySelectorAll('a').forEach(link => link.addEventListener('click', () => mobileMenu.classList.add('hidden')));
+
+            // --- Header background on scroll ---
+            const header = document.getElementById('header');
+            let lastScrollTop = 0;
+            window.addEventListener('scroll', () => {
+                let scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+                if (scrollTop > lastScrollTop) {
+                    header.style.top = "-100px"; // Hide on scroll down
+                } else {
+                    header.style.top = "0"; // Show on scroll up
+                }
+                lastScrollTop = scrollTop <= 0 ? 0 : scrollTop; 
+
+                if (window.scrollY > 50) {
+                    header.classList.add('bg-bg-dark/80', 'backdrop-blur-sm', 'shadow-lg');
+                } else {
+                    header.classList.remove('bg-bg-dark/80', 'backdrop-blur-sm', 'shadow-lg');
+                }
+            });
+
+            // --- Active Nav Link on Scroll ---
+            const sections = document.querySelectorAll('section');
+            const navLinks = document.querySelectorAll('.nav-link');
+            const navObserver = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        const id = entry.target.getAttribute('id');
+                        navLinks.forEach(link => {
+                            link.classList.remove('active-link');
+                            if (link.getAttribute('href') === `#${id}`) {
+                                link.classList.add('active-link');
+                            }
+                        });
+                    }
+                });
+            }, { rootMargin: '-40% 0px -60% 0px' });
+            sections.forEach(section => navObserver.observe(section));
+
+            // --- Reversible Scroll-triggered Animations ---
+            const animatedElements = document.querySelectorAll('.animate-on-scroll');
+            const scrollObserver = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    entry.target.classList.toggle('visible', entry.isIntersecting);
+                });
+            }, { threshold: 0.1 });
+            animatedElements.forEach(el => scrollObserver.observe(el));
+
+            // --- SVG Timeline Animation ---
+            const timelinePath = document.getElementById('timeline-path');
+            if (timelinePath) {
+                const pathLength = timelinePath.getTotalLength();
+                timelinePath.style.strokeDasharray = pathLength;
+                timelinePath.style.strokeDashoffset = pathLength;
+
+                const timelineObserver = new IntersectionObserver((entries) => {
+                    entries.forEach(entry => {
+                        if (entry.isIntersecting) {
+                            timelinePath.style.transition = 'stroke-dashoffset 2s ease-in-out';
+                            timelinePath.style.strokeDashoffset = '0';
+                        } else {
+                             timelinePath.style.transition = 'stroke-dashoffset 1s ease-in-out';
+                            timelinePath.style.strokeDashoffset = pathLength;
+                        }
+                    });
+                }, { threshold: 0.3 });
+
+                timelineObserver.observe(document.getElementById('experience'));
+            }
+
+            // --- Horizontal Scroll for Photo Gallery ---
+            const galleryContainer = document.getElementById('photo-gallery-container');
+            if (galleryContainer) {
+                const gallery = galleryContainer.querySelector('.overflow-x-auto');
+                galleryContainer.addEventListener('wheel', (e) => {
+                    if (e.deltaY !== 0) {
+                        e.preventDefault();
+                        gallery.scrollLeft += e.deltaY;
+                    }
+                }, { passive: false });
+            }
+        });
+    </script>
+</body>
+</html>
+
+
+
+
